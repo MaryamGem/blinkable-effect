@@ -1,0 +1,5 @@
+/* to make blinkable effect */
+li a[href="/collections/big-summer-sale-1"] {
+  color: red !important;
+  animation: blink 1s linear infinite;
+}
