@@ -1,0 +1,161 @@
+<section class="collage_section">
+  <div class="container">
+  <div class="Colage_Headings">
+    <h4 class="collage_heading">{{ section.settings.heading }}</h4>
+    <p class="title_description">{{ section.settings.title_descrptn }}</p>
+  </div>
+   <div class="collage_wrapper">
+      {% assign image = section.blocks | where: 'type' , 'text' %}
+      {% for block in image %}
+     <div class="col collage_left">
+        <img src="{{ block.settings.img | img_url: '' }}" class="colg_img">
+      <div class="colg_text">
+      <b class="description">{{ block.settings.left_text }}</b>
+      <p class="collage-paragraph">{{ block.settings.left_paragraph }}</p>
+      </div>
+     
+    </div>
+    
+    <div class=" col collage-right">
+      <div class="upper-collage">
+        {% assign right_image = section.blocks | where: 'type' , 'text' %}
+       {% for block in right_image %}
+      <div class="up-left-colg">
+        <img src="{{ block.settings.img_up-left | img_url: '' }}" class="colg_img ">
+        <div class="left colg_text">
+      <b class="description">{{ block.settings.up-left_desc }}</b>
+      <p class="collage-paragraph">{{ block.settings.up-left_paragraph }}</p>
+      </div>
+      </div>
+      <div class="up-right-colg">
+        <img src="{{ block.settings.img_right_clg | img_url: '' }}" class="colg_img ">
+        <div class="right colg_text">
+      <b class="description">{{ block.settings.up_right_text }}</b>
+      <p class="collage-paragraph">{{ block.settings.up_right_paragraph }}</p>
+      </div>
+      </div>  
+      
+      {% endfor %}       
+      </div>
+      <div class="down-colg">
+        
+      {% assign image_blocks = section.blocks | where: 'type', 'text' %}
+      {% for block in image_blocks %}
+        <img src="{{ block.settings.imageee | img_url: 'master' }}" class="colg_img">
+        <div class="down colg_text">
+      <b class="description">{{ block.settings.down_text }}</b>
+      <p class="collage-paragraph">{{ block.settings.down_paragraph }}</p>
+      </div>
+      {% endfor %}
+      </div>
+    </div>
+     {% endfor %}
+  </div>
+ </div>
+</section>
+
+
+
+
+{% schema %}
+  {
+    "name": "Collage_X",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Title",
+        "label": "Collage Heading"
+      },
+      {
+        "type": "text",
+        "id": "title_descrptn",
+        "default": "Details",
+        "label": "Collage Details"
+      }
+    ],
+    "blocks": [
+     {
+       "name": "Heading",
+       "type": "text",
+       "settings": [
+         {
+           "type": "image_picker",
+           "id": "img",
+           "label": "Collage Images"
+         },
+         {
+           "type": "text",
+           "id": "left_text",
+           "label": "img description"
+         },
+         {
+           "type": "text",
+           "id": "left_paragraph",
+           "label": "Slide Text"
+         },
+         {
+           "type": "image_picker",
+           "id": "img_up-left",
+           "label": "up right img"
+         },
+         {
+           "type": "text",
+           "id": "up-left_desc",
+           "label": "Right Slide Text"
+         },
+         {
+           "type": "text",
+           "id": "up-left_paragraph",
+           "label": "Right Slide Text"
+         },
+         {
+           "type": "image_picker",
+           "id": "img_right_clg",
+           "label": "up right img"
+         },
+         {
+           "type": "text",
+           "id": "up_right_text",
+           "label": "Right Slide Text"
+         },
+         {
+           "type": "text",
+           "id": "up_right_paragraph",
+           "label": "Right Slide Text"
+         },
+         {
+           "type": "image_picker",
+           "id": "imageee",
+           "label": "down img"
+         },
+         {
+           "type": "text",
+           "id": "down_text",
+           "label": "Down Slide Text"
+         },
+         {
+           "type": "text",
+           "id": "down_paragraph",
+           "label": "Down Slide Text"
+         }
+       ]
+       
+     }     
+  ],
+    "presets":[
+    {
+      "name":"Collage_X",
+      "category":"custom"
+    }
+  ]
+  }
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+
+
+
