@@ -1,0 +1,33 @@
+<div class="custom-top-bar">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+{% for block in section.blocks %}
+<div class="header-text swiper-slide">{{block.settings.text}}</div>
+{% endfor %}
+</div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      spaceBetween: 30,
+      centeredSlides: true,
+      direction: 'horizontal', 
+      loop: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+        loop: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+
