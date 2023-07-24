@@ -1,0 +1,86 @@
+<div class="Collection_main_round_img">
+    {% for block in section.blocks %}
+        
+        <div class="main_round_img">
+          <div class="round_img_col">
+             {% if block.settings.image != blank %}
+                    
+              <a href="{{ block.settings.collection_link }}" class="col-link"><img src="{{ block.settings.image | img_url:'' }}" class="round__img"></a>  
+                  
+              {% endif %}
+          </div>
+          <div class="round_img_text">
+            <b class="col-text">{{ block.settings.collection_name }} </b>
+          </div>
+            
+         </div>
+     {% endfor %}
+    </div>    
+
+    
+ 
+
+
+  <style>
+    img.round__img {
+    border-radius: 50%;
+    width: 200px;
+    }
+
+    .Collection_main_round_img {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 80%;
+    padding: 0 20px;
+    margin: auto;
+    }
+
+    .round_img_text{
+      text-align: center;
+    }
+    
+  </style>
+
+
+{% schema %}
+  {
+    "name": "Round Collection",
+    "settings": [
+      
+     
+    ],
+    "blocks": [
+     {
+       "name": "Collection",
+       "type": "text",
+       "settings": [
+         {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Collection Image"
+        },
+         {
+          "type": "url",
+          "id": "collection_link",
+          "label": "Collection link"
+         },
+         {
+        "type": "text",
+        "id": "collection_name",
+        "default": "Ring",
+        "label": "Collection Name"
+         }   
+       ]
+     }
+      
+  ],
+    "presets":[
+    {
+      "name":"round-img-collection",
+      "category":"custom"
+    }
+  ]
+  }
+{% endschema %}
