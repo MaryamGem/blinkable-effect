@@ -1,0 +1,85 @@
+  {% comment %} Announcement bar {% endcomment %}
+
+
+<!--              this is slider class //     custom-announcement-slider -->
+                  
+                  <section class="animation-main">
+                    <div class="anouncement-animation">
+                      {% for block in section.blocks %}
+                      <p> {{ block.settings.custom-text}} </p>
+                      {% endfor %}
+                    </div>
+                  </section>
+                   
+
+
+
+<!--        Internal CSS  Start         -->
+
+<style>
+
+  .anouncement-animation {
+    display: flex;
+    padding: 0 2rem;
+    margin-bottom: 0;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
+    width: fit-content;
+    width: -moz-fit-content;
+    animation: marqueeLeft 15s linear infinite;
+    justify-content: flex-end;
+}
+
+.anouncement-animation p {
+    flex: 0 0 fit-content;
+    flex: 0 0 -moz-fit-content;
+    min-width: fit-content;
+    position: relative;
+    margin: 0;
+    padding: 10px 30px;
+    font-size: 18px;
+}
+
+
+@keyframes marqueeLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-75%); }
+}
+
+@keyframes marqueeRight {
+  0% { transform: translateX(-85%); }
+  100% { transform: translateX(0%); }
+}
+
+  
+</style>
+
+
+
+{% schema %}
+  {
+    "name": "Announcement Bar",
+    "settings": [
+      
+    ],
+  
+  		"blocks": [
+     {
+       "name": "Text",
+       "type": "heading",
+       "settings": [
+         {
+           "type": "text",
+           "id": "custom-text",
+           "label": "Write text here"
+         }
+       ]
+     }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
