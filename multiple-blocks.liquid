@@ -1,0 +1,95 @@
+{% assign text_block = section.blocks | where: 'type', 'slidep' %}
+    
+    {%  for block in text_block %}
+     
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+        <b class="top_strong">{{ block.settings.bold_text }}</b>
+        <p class="top-paragraph">{{ block.settings.thin_text }}</p>
+         <b class="top-bold-link"><a href="{{ block.settings.top_link }}" class="top-anchor">{{ block.settings.top_link_text }}</a></b> 
+        </div>
+    </div>
+    
+   {% endfor %}
+
+      {% assign image_blocks = section.blocks | where: 'type', 'imagez' %}
+      {% for block in image_blocks %}
+        <img src="{{ block.settings.image | img_url: 'master' }}">
+      {% endfor %}
+
+    
+  </div>
+
+
+{% schema %}
+  {
+    "name": "top-bar",
+    "settings": [
+      {
+        "type": "text",
+        "id": "phn_text",
+        "default": "Phone NO",
+        "label": "Call US"
+      },
+      {
+        "type": "text",
+        "id": "phn_digits",
+        "default": "123",
+        "label": "Dial"
+      }
+      
+      
+    ],
+    "blocks": [
+     {
+       "name": "Slidevv",
+       "type": "slidep",
+       "settings": [
+         {
+        "type": "text",
+        "id": "bold_text",
+        "default": "Strong",
+        "label": "Strong"
+         },
+         {
+        "type": "text",
+        "id": "thin_text",
+        "default": "para",
+        "label": "paragraph"
+         },
+         {
+          "type": "text",
+          "id": "top_link_text",
+          "label": "top_link_text"
+         },
+         {
+          "type": "url",
+          "id": "top_link",
+          "label": "top_link"
+         }
+       ]
+     },
+      {
+    "type": "imagez",
+    "name": "Image slide",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      }
+    ]
+  }
+  ],
+    "presets":[
+    {
+      "name":"top-bar",
+      "category":"custom"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
