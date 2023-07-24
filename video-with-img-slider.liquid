@@ -1,0 +1,48 @@
+<section>
+  <div class="video">
+    <video src="{{ section.settings.video_url }}" controls autoplay loop></video>
+  </div>
+  <div class="img-slider">
+    {% for block in section.blocks %}
+      {% if block.settings.image != blank %}
+        <div class="slide">
+          <img src="{{ block.settings.image | img_url: 'master' }}">
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "smoke_effect",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video_url",
+      "label": "Video URL",
+      "info": "Enter the URL of the video"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "smoke_effect"
+      }
+    
+  ]
+}
+{% endschema %}
+
