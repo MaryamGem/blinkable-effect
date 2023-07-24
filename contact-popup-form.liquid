@@ -1,0 +1,147 @@
+{% form 'contact' %}
+{% if form.posted_successfully? %}
+<div class="form-notification success">
+    {% render 'svg-icons' with 'thb-success' %} {{ 'contact.form.post_success' | t }}
+</div>
+{%- elsif form.errors %}
+<div class="form-notification error">
+    {% render 'svg-icons' with 'thb-error' %} {{ 'contact.form.error_heading' | t }} {{ form.errors | default_errors }}
+</div>
+{% endif %}
+<div class="row no-padding">
+    <div class="small-12 medium-6 columns">
+        <div class="field">
+            <input type="text" id="ContactFormName" name="contact[name]" class="full"
+                placeholder="{{ 'contact.form.name' | t | escape }}">
+            <label for="ContactFormName">{{ 'contact.form.name' | t }}</label>
+        </div>
+    </div>
+    <div class="small-12 medium-6 columns">
+        <div class="field">
+            <input type="email" id="ContactFormEmail" name="contact[email]" class="full"
+                placeholder="{{ 'contact.form.email' | t | escape }}" required>
+            <label for="ContactFormEmail">{{ 'contact.form.email' | t }}</label>
+        </div>
+    </div>
+    <div class="small-12 medium-6 columns">
+        <div class="field">
+            <input type="text" id="ContactFormCity" name="contact[City]" class="full" placeholder="City" required>
+            <label for="ContactFormCity">City</label>
+        </div>
+    </div>
+
+    <div class="small-12 medium-6 columns">
+        <div class="field">
+            <input type="tel" id="ContactFormPhone" name="contact[phone]" class="full"
+                placeholder="{{ 'contact.form.phone' | t | escape }}">
+            <label for="ContactFormPhone">{{ 'contact.form.phone' | t }}</label>
+        </div>
+    </div>
+
+    {%- for block in section.blocks -%}
+    {%- liquid
+    assign field_title = block.settings.title
+    if field_title == blank
+    capture field_title
+    echo 'Custom field ' | append: field_index
+    endcapture
+    endif
+    -%}
+    {%- case block.type -%}
+    {%- when 'text_field' -%}
+    <div class="small-12 columns">
+        <div class="field">
+            {%- if block.settings.use_long_text -%}
+            <textarea id="{{ block.id }}" name="contact[{{ field_title | escape }}]" cols="30" rows="10" class="full"
+                aria-label="{{ block.settings.title | escape }}" placeholder="{{ block.settings.title | escape }}" {% if
+                block.settings.is_required %}required{% endif %}></textarea>
+            <label for="{{ block.id }}">{{ block.settings.title | escape }}</label>
+            {%- else -%}
+            <input id="{{ block.id }}" type="text" class="full" name="contact[{{ field_title | escape }}]"
+                aria-label="{{ block.settings.title | escape }}" placeholder="{{ block.settings.title | escape }}" {% if
+                block.settings.is_required %}required{% endif %}>
+            <label for="{{ block.id }}">{{ block.settings.title | escape }}</label>
+            {%- endif -%}
+        </div>
+    </div>
+    {%- assign field_index = field_index | plus: 1 -%}
+    {%- when 'dropdown_field' -%}
+    {%- liquid
+    assign values = block.settings.values | split: ','
+    if values == empty
+    continue
+    endif
+    -%}
+    <div class="small-12 columns">
+        <div class="field select">
+            <select class="full" name="contact[{{ field_title | escape }}]" title="{{ block.settings.title | escape }}"
+                required>
+                <option value="" disabled selected>{{ block.settings.title | escape }}</option>
+                {%- for value in values -%}
+                {%- assign trim_value = value | strip -%}
+                <option value="{{ trim_value | escape }}">{{ trim_value | escape }}</option>
+                {%- endfor -%}
+            </select>
+            <label for="{{ block.id }}">{{ block.settings.title | escape }}</label>
+        </div>
+    </div>
+    {%- assign field_index = field_index | plus: 1 -%}
+    {%- endcase -%}
+    {%- endfor -%}
+    <div class="small-12 medium-12 columns">
+        <div class="field">
+            <textarea rows="10" id="ContactFormMessage" name="contact[body]" class="full"
+                placeholder="{{ 'contact.form.comment' | t | escape }}"></textarea>
+            <label for="ContactFormMessage">{{ 'contact.form.comment' | t }}</label>
+        </div>
+    </div>
+    <div class="small-12 medium-12 columns">
+        <input type="submit" value="{{ 'contact.form.send' | t }}" class="button full">
+    </div>
+</div>
+{% endform %}
+
+{% comment %} CSS {% endcomment %}
+<style>
+    #popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        z-index: 1000;
+    }
+
+    #closeButton {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    #openButton {
+        margin-top: 20px;
+    }
+</style>
+
+{% comment %} javascript {% endcomment %}
+<script>
+    const openButton = document.getElementById('openButton');
+    const closeButton = document.getElementById('closeButton');
+    const popup = document.getElementById('popup');
+    const popupOverlay = document.getElementById('popupOverlay');
+
+    openButton.addEventListener('click', function () {
+        popup.style.display = 'block';
+        popupOverlay.style.display = 'block';
+    });
+
+    closeButton.addEventListener('click', function () {
+        popup.style.display = 'none';
+        popupOverlay.style.display = 'none';
+    });
+
+
+</script>
