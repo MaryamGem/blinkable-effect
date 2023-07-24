@@ -1,0 +1,87 @@
+<section class="store-locator">
+ <div class="store-container">
+   <div class="store-wrapper">
+     <div class="store-left">
+       {% assign Headings = section.blocks | where: 'type' , 'text' %}
+        {% for block in Headings %}
+         <h4>{{ block.settings.heading }}</h4>
+         <p>{{ block.settings.address }}</p>
+         <p>{{ block.settings.phone }}</p>
+         <a href="{{ block.settings.storelink }}" target="_blank">{{ block.settings.btn }}</a>
+        {% endfor %}
+     </div>
+     <div class="store-right"></div>
+   </div>
+ </div> 
+</section>
+
+
+
+
+
+
+
+{% assign Paragraph = section.blocks | where: 'type' , 'text' %}
+{% for block in Paragraph %}
+<p class="ext-para">{{ block.settings.slide_paragraph }}</p>
+{% endfor %}
+
+{% assign image = section.blocks | where: 'type' , 'image' %}
+{% for block in image %}
+<img src="{{ block.settings.img | img_url: 'master' }}">
+{% endfor %}
+
+
+{% schema %}
+  {
+    "name": "store_locator",
+    "settings": [
+    ],
+    "blocks": [
+     {
+       "name": "Store Locator",
+       "type": "text",
+       "settings": [
+         {
+           "type": "text",
+           "id": "heading",
+           "label": "Location Heading"
+         },
+         {
+           "type": "text",
+           "id": "address",
+           "label": "Store Address"
+         },
+         {
+           "type": "text",
+           "id": "phone",
+           "label": "Location Contact"
+         },
+         {
+           "type": "url",
+           "id": "storelink",
+           "label": "Location Link"
+         },
+         {
+           "type": "text",
+           "id": "btn",
+           "label": "Location Button"
+         }
+       ]
+     },
+     
+  ],
+    "presets":[
+    {
+      "name":"slide_image",
+      "category":"custom"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+
+
