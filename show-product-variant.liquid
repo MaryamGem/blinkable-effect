@@ -1,0 +1,13 @@
+<div class="he-fabric-variants">
+       {{sizeOption3}}
+        </div>
+
+{% for size in product_card_product.options_with_values%}
+  
+  {% if size.name == "Fabric" %}
+
+{% assign sizeOption3 = size.values %}
+
+  {% endif %}
+
+{% endfor %}
