@@ -1,0 +1,98 @@
+{% style %}
+    .btn {
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 25px;
+    }
+    .btn_black{
+      color: #fff;
+      border: 1px solid #000;
+      background: #000;
+    }
+    .btn_white{
+      color: #000;
+      border: 1px solid #fff;
+      background: #fff;
+    }
+{% endstyle %}
+<section class="bg">
+  <div class="paragraph-container">
+    <div class="paragraph-wrap">
+      <div class="background"></div>
+      <div class="btn-text">
+        {% render 'paragraph-snippet', p: section.settings.btn_text %}
+      </div>
+      <div class="paragraph">
+        <div class="para-btn1">
+          {% render 'button-snippet',
+            url: section.settings.btn_link1,
+            text: section.settings.btn1,
+            hello: 'btn_white'
+          %}
+        </div>
+        <div class="para-btn2">
+          {% render 'button-snippet',
+            url: section.settings.btn_link2,
+            text: section.settings.btn2,
+            hello: 'btn_black'
+          %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if section.settings.background_img != blank %}
+  <style>
+    .paragraph-wrap {
+      background-image: url({{ section.settings.background_img | img_url: "master" }});
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
+{% endif %}
+{% schema %}
+{
+  "name": "Button",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_img",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "btn_link1",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "btn1",
+      "label": "Button Label",
+      "default":"Button Text"
+    },
+    {
+      "type": "url",
+      "id": "btn_link2",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "btn2",
+      "label": "Button Label",
+      "default":"Button Text"
+    }
+  ],
+"presets": [
+  {
+    "name": "Button",
+    "category": "Custom"
+  }
+ ]
+}
+{% endschema %}
